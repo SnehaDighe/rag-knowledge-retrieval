@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  flask-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+    volumes:
+      - ./src:/app/src
+      - ./backend-python:/app/backend-python
+      - ./data:/app/data
+    networks:
+      - rag-network
+
+  nodejs-api:
+    build:
+      context: ./backend-nodejs
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./backend-nodejs:/app
+    networks:
+      - rag-network
+    depends_on:
+      - flask-api
+
+networks:
+  rag-network:
+    driver: bridge
