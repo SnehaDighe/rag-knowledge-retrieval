@@ -49,6 +49,13 @@ docker-compose.override.yml
 *.sqlite
 *.sqlite3
 
+# Kubernetes - Never commit secrets!
+k8s/secret.yaml
+k8s/secret.yaml.local
+k8s/secret.local.*
+k8s/*.local.yaml
+!k8s/secret.yaml.example
+
 # Logs
 *.log
 logs/

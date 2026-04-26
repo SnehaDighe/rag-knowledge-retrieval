@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rag-ingress
+  namespace: rag-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: rag.example.com
+    http:
+      paths:
+      - path: /api/python
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-api
+            port:
+              number: 5000
+      - path: /api/node
+        pathType: Prefix
+        backend:
+          service:
+            name: nodejs-api
+            port:
+              number: 3000
