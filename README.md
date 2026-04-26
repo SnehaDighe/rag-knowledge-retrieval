@@ -112,6 +112,10 @@ docker-compose up --build
 
 Contributions welcome! Please create a pull request with your changes.
 
+## Case Study
+
+Detailed project context and the product vision are available in `CASE_STUDY.md`.
+
 ## License
 
 MIT License
