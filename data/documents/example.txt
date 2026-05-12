@@ -1,0 +1,3 @@
+Machine learning is a branch of artificial intelligence focused on building systems that learn from data. This example document explains the basics of machine learning, including supervised and unsupervised learning methods.
+
+Supervised learning uses labeled examples, while unsupervised learning finds patterns without explicit labels.

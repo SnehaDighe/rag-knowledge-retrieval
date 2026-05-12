@@ -104,9 +104,54 @@ docker-compose up --build
 
 ## API Endpoints
 
-- `POST /api/ingest` - Ingest documents
-- `POST /api/query` - Query the knowledge base
-- `GET /api/status` - System status
+### Authentication Endpoints
+
+- `POST /auth/signup` - Create a new user account
+- `POST /auth/login` - Login and get JWT token
+- `GET /auth/verify` - Verify JWT token validity
+
+### Protected Endpoints (Require JWT Token)
+
+- `POST /api/ingest` - Ingest documents (requires `Authorization: Bearer <token>`)
+- `POST /api/query` - Query the knowledge base (requires `Authorization: Bearer <token>`)
+- `GET /api/status` - System status (requires `Authorization: Bearer <token>`)
+
+### Public Endpoints
+
+- `GET /health` - Health check (no authentication required)
+
+## Authentication
+
+This system uses JWT (JSON Web Tokens) for authentication. All API endpoints except `/health` require authentication.
+
+### Authentication Flow
+
+1. **Signup**: Create a user account
+```bash
+curl -X POST http://localhost:3000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"username": "your_username", "password": "your_password"}'
+```
+
+2. **Login**: Get JWT token
+```bash
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "your_username", "password": "your_password"}'
+```
+
+3. **Use API**: Include token in Authorization header
+```bash
+curl -X GET http://localhost:3000/api/status \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### Testing Authentication
+
+Run the authentication test script:
+```bash
+./test_auth.sh
+```
 
 ## Contributing
 

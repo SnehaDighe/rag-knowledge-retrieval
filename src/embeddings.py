@@ -4,7 +4,7 @@ Embeddings module for generating vector representations of documents
 import os
 import logging
 from typing import List
-import openai
+from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -15,16 +15,16 @@ class EmbeddingsGenerator:
     def __init__(self, api_key: str, model: str = "text-embedding-3-small"):
         self.api_key = api_key
         self.model = model
-        openai.api_key = api_key
+        self.client = OpenAI(api_key=api_key)
 
     def generate_embedding(self, text: str) -> List[float]:
         """Generate embedding for a single text"""
         try:
-            response = openai.Embedding.create(
+            response = self.client.embeddings.create(
                 input=text,
                 model=self.model
             )
-            return response['data'][0]['embedding']
+            return response.data[0].embedding
         except Exception as e:
             logger.error(f"Error generating embedding: {e}")
             raise

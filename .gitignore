@@ -49,6 +49,19 @@ docker-compose.override.yml
 *.sqlite
 *.sqlite3
 
+# Vector indices
+data/indices/
+*.index
+*.faiss
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
 # Kubernetes - Never commit secrets!
 k8s/secret.yaml
 k8s/secret.yaml.local

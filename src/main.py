@@ -3,10 +3,11 @@ Main entry point for RAG Knowledge Retrieval System
 """
 import os
 import logging
+from typing import List, Dict
 from dotenv import load_dotenv
-from data_ingestion import DataIngestion
-from embeddings import EmbeddingsGenerator
-from semantic_search import SemanticSearch
+from .data_ingestion import DataIngestion
+from .embeddings import EmbeddingsGenerator
+from .semantic_search import SemanticSearch
 
 # Configure logging
 logging.basicConfig(
